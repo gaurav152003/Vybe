@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import User from "./User.model.js";
 
 const loopSchema = new mongoose.Schema({
     author: {
@@ -10,8 +11,8 @@ const loopSchema = new mongoose.Schema({
             type: String,
             required:true
         },
-        Caption: {
-            type:string
+        caption: {
+            type:String,
         },
         likes: [
             {
@@ -20,10 +21,14 @@ const loopSchema = new mongoose.Schema({
             }
         ],
         comments: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref:"User"
-            }
+             {
+                      author: { type: mongoose.Schema.Types.ObjectId,
+                            ref: "User"
+                        },
+                        message: {
+                            type:String
+                        }
+                    }
         ]
     
 }, { timestamps: true })

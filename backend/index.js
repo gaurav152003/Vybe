@@ -1,30 +1,43 @@
-import express from 'express'
-import dotenv from 'dotenv'
-import connectDb from './config/db.js'
-import cookieParser from 'cookie-parser'
-import cors from "cors"
-import authRouter from './routes/Auth.routes.js'
-import userRouter from './routes/User.routes.js'
-dotenv.config()
-const app = express()
-const port=process.env.PORT   || 5000
+import express from 'express';
+import dotenv from 'dotenv';
+import connectDb from './config/db.js';
+import cookieParser from 'cookie-parser';
+import cors from "cors";
+import authRouter from './routes/Auth.routes.js';
+import userRouter from './routes/User.routes.js';
+import postRouter from './routes/Post.routes.js';
+
+import loopRouter from './routes/Loop.routes.js';
+import storyRouter from './routes/Story.routes.js';
+
+dotenv.config();
+
+const app = express();
+const port = process.env.PORT || 5000;
 
 app.use(cors({
     origin: "http://localhost:5173",
-    withCredentials:true
-}))
-app.use(express.json())
-app.use(cookieParser())
+    credentials: true
+}));
 
-app.use("/api/auth", authRouter)
-app.use('/api/user',userRouter)
+app.use(express.json());
+app.use(cookieParser());
 
+app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
+app.use("/api/post", postRouter);
+app.use("/api/loop", loopRouter);
+app.use("/api/story", storyRouter);
 
-
-
-
-
-app.listen(port, () => {
-    connectDb()
-    console.log("server started")
-})
+// app.get('/', (req, res) => {
+//     res.send("hello")
+// })
+connectDb()      // .then and .catch run function after promise accept or reject
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`Server started on port ${port}`);
+        });
+    })
+    .catch((err) => {
+        console.error("MongoDB connection failed:", err);
+    });

@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+
+* {
+  -ms-overflow-style: none;  /* for Internet Explorer, Edge */
+  scrollbar-width: none;     /* for Firefox */
+}
+
+::-webkit-scrollbar {
+  display: none;  /* for Chrome, Safari, and Opera */
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+

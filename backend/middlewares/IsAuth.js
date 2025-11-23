@@ -9,7 +9,7 @@ const isAuth = async(req, res, next) => {
             return res.status(400).json({ message: "Token is not found" })
             
         }
-    const verifyToken = await jwt.verify(token, process.envJWT_SECRET)
+    const verifyToken = await jwt.verify(token, process.env.JWT_SECRET)
         req.userId = verifyToken.userId
         next()
     } catch (error) {

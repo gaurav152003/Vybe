@@ -12,16 +12,23 @@ const userSchema = new mongoose.Schema({
         unique:true
     },
     email: {
-        type: String,
-        required:true,
-        unique:true
+    type: String,
+    required: true,
+    unique: true
     },
+
     password: {
         type: String,
         required:true
     },
     profileImage: {
         type: String,
+    },
+    bio: {
+        type:String,
+    },
+    profession: {
+      type:String,  
     },
     followers: [
         {
@@ -47,6 +54,12 @@ const userSchema = new mongoose.Schema({
             ref:"Post"
         }
     ],
+    savedloop: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:"Loop"
+        }
+    ],
     loops: [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -56,8 +69,18 @@ const userSchema = new mongoose.Schema({
     story: {
         type: mongoose.Schema.Types.ObjectId,
         ref:"Story"
-    }
+    },
 
+    resetotp: {
+        type:String
+    },
+    otpexpire: {
+       type:Date 
+    },
+    isotpverified: {
+        type: Boolean,
+        default:false
+    }
 }, { timestamps: true })
 
 

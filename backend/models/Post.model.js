@@ -1,4 +1,5 @@
 import mongoose, { mongo } from "mongoose";
+import User from "./User.model.js";
 
 
 
@@ -17,7 +18,7 @@ const postSchema = new mongoose.Schema({
         type: String,
         required:true
     },
-    Caption: {
+    caption: {
         type:String
     },
     likes: [
@@ -28,8 +29,12 @@ const postSchema = new mongoose.Schema({
     ],
     comments: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref:"User"
+          author: { type: mongoose.Schema.Types.ObjectId,
+                ref: "User"
+            },
+            message: {
+                type:String
+            }
         }
     ]
 
